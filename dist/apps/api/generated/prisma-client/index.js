@@ -230,7 +230,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/hasansiddique/Desktop/UWS/Final Project/nhs_portal/apps/api/src/generated/prisma-client",
+      "value": "/Users/hasansiddique/Desktop/UWS/Final Project/final_project/apps/api/src/generated/prisma-client",
       "fromEnvVar": null
     },
     "config": {
@@ -248,7 +248,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/hasansiddique/Desktop/UWS/Final Project/nhs_portal/apps/api/prisma/schema.prisma",
+    "sourceFilePath": "/Users/hasansiddique/Desktop/UWS/Final Project/final_project/apps/api/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
