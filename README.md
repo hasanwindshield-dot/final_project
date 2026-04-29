@@ -84,7 +84,7 @@ If unset, the app may use a different base URL; auth (login/signup/forgot passwo
 |------|------|-------|----------|-------------------|
 | **Admin** | Demo Admin | `admin@nhs-demo.local` | `Demo2026!` | Full directory, booked list, calendar, **Add patient** / **Add doctor** on the dashboard, all locations in the location filter. |
 | **Doctor** (practitioner) | Dr Sarah Mitchell | `sarah.mitchell@nhs-demo.local` | `Demo2026!` | Own appointments, patients at their clinics, calendar (+Add) with **patient** selection and status/notes updates on an event. |
-| **Patient** | Demo Patient | `patient@nhs-demo.local` | `Demo2026!` | **My appointments**, **Book appointment**; location filter is fixed to their registered clinic; cancel own future appointments from the calendar detail panel. |
+| **Patient** | Lucy Brennan | `patient@nhs-demo.local` | `Demo2026!` | **My appointments**, **Book appointment**; location filter is fixed to their registered clinic; cancel own future appointments from the calendar detail panel. |
 
 Additional seeded clinicians (directory demo) use emails ending in **`@nhs-demo.local`** with password **`SeedPractitioner!`** (unchanged unless you edit the seed).
 

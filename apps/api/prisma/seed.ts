@@ -151,6 +151,34 @@ function hashStringForPostcode(s: string): number {
   return Math.abs(h);
 }
 
+/** Plausible display names for seeded patient accounts (fictional; varied by clinic + index). */
+const SEED_PATIENT_GIVEN = [
+  'Oliver', 'Amelia', 'Noah', 'Isla', 'George', 'Freya', 'Harry', 'Poppy', 'Jack', 'Evie',
+  'Leo', 'Mia', 'Oscar', 'Grace', 'Jacob', 'Lily', 'Charlie', 'Sophie', 'Muhammad', 'Aisha',
+  'Ethan', 'Zara', 'James', 'Emily', 'William', 'Chloe', 'Thomas', 'Hannah', 'Daniel', 'Yasmin',
+  'Ryan', 'Meera', 'Alex', 'Ella', 'Sam', 'Ruby', 'Ben', 'Niamh', 'Lucas', 'Priya',
+  'Henry', 'Fatima', 'Max', 'Sienna', 'Arthur', 'Layla',
+] as const;
+
+const SEED_PATIENT_FAMILY = [
+  'Taylor', 'Williams', 'Davies', 'Brown', 'Jones', 'Wilson', 'Johnson', 'Robinson', 'Wright', 'Thompson',
+  'Walker', 'White', 'Roberts', 'Green', 'Hall', 'Wood', 'Harris', 'Lewis', 'Turner', 'Clarke',
+  'Patel', 'Khan', 'Ahmed', 'Hussain', 'Malik', 'Sharma', 'Singh', 'Okafor', 'Mensah', 'OConnell',
+  'Murphy', 'Kelly', 'Walsh', 'Campbell', 'Stewart', 'Reid', 'Mitchell', 'Cox', 'Richardson', 'Foster',
+  'Bennett', 'Cooper', 'Hughes', 'Edwards', 'Morris', 'Brooks',
+] as const;
+
+function syntheticPatientDisplayName(locCode: string, patientIndex: number): string {
+  const h1 = hashStringForPostcode(`given:${locCode}:${patientIndex}`);
+  const h2 = hashStringForPostcode(`family:${locCode}:${patientIndex}`);
+  const given = SEED_PATIENT_GIVEN[h1 % SEED_PATIENT_GIVEN.length];
+  const family = SEED_PATIENT_FAMILY[h2 % SEED_PATIENT_FAMILY.length];
+  return `${given} ${family}`;
+}
+
+/** Primary demo login for the patient role (fictional name). */
+const DEMO_PATIENT_DISPLAY_NAME = 'Lucy Brennan';
+
 /**
  * Demo postcodes per Sub-ICB site so registration can filter clinics by outward / prefix.
  * (Open-data extract does not include per-site postcodes.)
@@ -246,7 +274,7 @@ async function seedPatientsPerLocation(
         data: {
           email,
           passwordHash: patientPasswordHash,
-          name: `Demo patient (${loc.code} · ${i})`,
+          name: syntheticPatientDisplayName(loc.code, i),
           role: UserRole.PATIENT,
         },
       });
@@ -489,11 +517,11 @@ async function main() {
 
   const demoPatientUser = await prisma.user.upsert({
     where: { email: 'patient@nhs-demo.local' },
-    update: { passwordHash: demoPasswordHash, name: 'Demo Patient', role: UserRole.PATIENT },
+    update: { passwordHash: demoPasswordHash, name: DEMO_PATIENT_DISPLAY_NAME, role: UserRole.PATIENT },
     create: {
       email: 'patient@nhs-demo.local',
       passwordHash: demoPasswordHash,
-      name: 'Demo Patient',
+      name: DEMO_PATIENT_DISPLAY_NAME,
       role: UserRole.PATIENT,
     },
   });
